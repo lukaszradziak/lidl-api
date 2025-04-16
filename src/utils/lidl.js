@@ -80,7 +80,7 @@ const refreshToken = async (refresh_token) => {
 }
 
 const login = async () => {
-  const openIdIssuer = await Issuer.discover('https://accounts.lidl.com')
+  const openIdIssuer = await Issuer.discover(ACCOUNTS_ENDPOINT)
   const codeVerifier = generators.codeVerifier();
   const codeChallenge = generators.codeChallenge(codeVerifier);
 
@@ -100,6 +100,7 @@ const login = async () => {
 
   const browserConfig = {
     slowMo: 10,
+    args: ['--no-sandbox'],
   };
 
   if (DEBUG) {
@@ -150,7 +151,7 @@ const login = async () => {
       throw new Error('Authorization code not found in callback URL');
     }
 
-    const tokenUrl = 'https://accounts.lidl.com/connect/token';
+    const tokenUrl = `${ACCOUNTS_ENDPOINT}/connect/token`;
     const headers = {
       'Authorization': 'Basic TGlkbFBsdXNOYXRpdmVDbGllbnQ6c2VjcmV0',
       'Content-Type': 'application/x-www-form-urlencoded'
