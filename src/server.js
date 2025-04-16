@@ -37,7 +37,7 @@ app.get('/new-tickets', async (req, res) => {
   const tickets = await fetchTickets(token['access_token']);
   const newTickets = [];
 
-  for (const ticket of tickets['tickets'].slice(0, 10)) {
+  for (const ticket of tickets['tickets'].slice(0, 6)) {
     if (getTicket(ticket.id) === null) {
       const ticketData = await fetchTicket(token['access_token'], ticket.id);
       // saveTicket(ticket.id, ticketData);
